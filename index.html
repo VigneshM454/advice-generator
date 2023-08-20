@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title> Advice generator</title>
+  <style>    
+    .attribution {
+      font-size: 15px;
+      color: bisque;
+      text-align: center;
+      position: absolute;
+      bottom: 4%;
+    }
+    .attribution a {
+       color: hsl(228, 45%, 44%);
+      text-decoration: none;
+    }
+    body{
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /*   width: 98%;
+     */    height: 97vh;
+    }
+    .contain {
+      background-color: rgba(0, 0, 0,0.3);
+      border-radius: 15px;
+      width: 400px;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      /* justify-content: space-evenly;
+     */ border: 2px solid wheat;
+      align-items: center;
+    }
+    #advtxt{
+      color: hsl(193, 38%, 86%);
+      width: 90%;
+    }
+    #advid{
+      color: hsl(150, 100%, 66%);
+    }
+    button {
+      border-radius: 50%;
+      width: 60px;
+      display: flex;
+      height: 60px;
+      background-color: hsl(150, 100%, 66%);
+      border: 1px solid black;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      bottom: 17%;
+    }    
+
+  img#divider {
+    position: fixed;
+    bottom: 33%;
+    width: 20rem;
+  }
+    @media (width<375px) {
+      .contain{
+        width: 250px;
+        height: 400px;
+        width: 300px;
+        height: 340px;
+      }
+      img#divider {
+       width: 15rem;
+        position: absolute;
+      }
+      button {
+        position: absolute;
+       bottom: 12%;
+      }
+      body{
+        min-width: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contain">
+    <h3 id="advid">ADVICE #117</h3>
+    <!-- Advice ID goes here -->
+    <h2 id="advtxt">"It is easy to sit up and take notlice,
+       what's difficult is getting up and taking action."
+    </h2>
+    <img src="pattern-divider-desktop.svg" alt="divider-line" width="150px" id="divider" height="15px">
+    <button title="btn" id="btn" type="button">
+    <img src="icon-dice.svg" alt="dice">
+    </button>
+  </div>
+
+  <div class="attribution">
+    Coded by <a href="https://github.com/VigneshM454" target="_blank">M.Vignesh</a>
+  </div>
+ 
+<script>
+  const btn=document.getElementById('btn');
+  btn.addEventListener('click',()=>{
+    fetch('https://api.adviceslip.com/advice')
+      .then(response => response.json())
+      .then(data =>{
+        const advice=data.slip.advice;
+        const advid=data.slip.id;
+        document.getElementById('advid').textContent='ADVICE #'+advid;
+        document.getElementById('advtxt').textContent='"'+advice+'"';
+      })
+      .catch(error =>{
+        document.getElementById('advid').textContent+=00;
+        document.getElementById('advtxt').textContent='"some error occured"';
+      });
+  })
+</script>
+</body>
+</html>
